@@ -351,6 +351,7 @@ public class DefaultMessageStore implements MessageStore {
         }
     }
 
+    // TODO: 2019-11-19 存储的核心逻辑，着重去了解！！！
     public PutMessageResult putMessage(MessageExtBrokerInner msg) {
         if (this.shutdown) {
             log.warn("message store has shutdown, so putMessage is forbidden");
@@ -392,6 +393,7 @@ public class DefaultMessageStore implements MessageStore {
         }
 
         long beginTime = this.getSystemClock().now();
+        // TODO: 2019-11-26 存储实际上是委托commitLog去做存储 
         PutMessageResult result = this.commitLog.putMessage(msg);
 
         long elapsedTime = this.getSystemClock().now() - beginTime;
@@ -531,6 +533,8 @@ public class DefaultMessageStore implements MessageStore {
                     nextBeginOffset = nextOffsetCorrection(offset, maxOffset);
                 }
             } else {
+
+                // TODO: 2019-11-27 前面都是在处理异常情况，这里真正获取 
                 SelectMappedBufferResult bufferConsumeQueue = consumeQueue.getIndexBuffer(offset);
                 if (bufferConsumeQueue != null) {
                     try {

@@ -237,9 +237,10 @@ public class MQClientInstance {
                     this.mQClientAPIImpl.start();
                     // Start various schedule tasks
                     this.startScheduledTask();
-                    // Start pull service
+                    // Start pull service 核心逻辑，启动从broker拉取消息任务
                     this.pullMessageService.start();
                     // Start rebalance service
+                    // 核心逻辑，启动定时rebalance逻辑，里面包含了第一次触发消息拉取逻辑
                     this.rebalanceService.start();
                     // Start push service
                     this.defaultMQProducer.getDefaultMQProducerImpl().start(false);

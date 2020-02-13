@@ -532,6 +532,8 @@ public class BrokerController {
     }
 
     public void registerProcessor() {
+
+        // TODO: 2019-11-14 注册了很多的处理器类，用来对消息的处理 
         /**
          * SendMessageProcessor
          */

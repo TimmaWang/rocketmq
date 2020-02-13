@@ -41,6 +41,8 @@ import org.apache.rocketmq.store.schedule.ScheduleMessageService;
 
 /**
  * Store all metadata downtime for recovery, data protection reliability
+ *
+ * 消息存储的实际存放位置
  */
 public class CommitLog {
     // Message's MAGIC CODE daa320a7
@@ -638,8 +640,9 @@ public class CommitLog {
         // Statistics
         storeStatsService.getSinglePutMessageTopicTimesTotal(msg.getTopic()).incrementAndGet();
         storeStatsService.getSinglePutMessageTopicSizeTotal(topic).addAndGet(result.getWroteBytes());
-
+        // TODO: 2019-11-26 处理磁盘刷盘，作用就是将消息缓冲区的数据刷到文件中去
         handleDiskFlush(result, putMessageResult, msg);
+        // TODO: 2019-11-26 处理高可用 
         handleHA(result, putMessageResult, msg);
 
         return putMessageResult;
