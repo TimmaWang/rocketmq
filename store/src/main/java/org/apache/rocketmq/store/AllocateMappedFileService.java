@@ -188,6 +188,7 @@ public class AllocateMappedFileService extends ServiceThread {
                     .getMapedFileSizeCommitLog()
                     &&
                     this.messageStore.getMessageStoreConfig().isWarmMapedFileEnable()) {
+                    // TODO: 2020-04-09 预热文件。。。用来做什么？ 
                     mappedFile.warmMappedFile(this.messageStore.getMessageStoreConfig().getFlushDiskType(),
                         this.messageStore.getMessageStoreConfig().getFlushLeastPagesWhenWarmMapedFile());
                 }

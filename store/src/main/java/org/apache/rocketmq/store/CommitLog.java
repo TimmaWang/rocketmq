@@ -639,7 +639,9 @@ public class CommitLog {
         storeStatsService.getSinglePutMessageTopicTimesTotal(msg.getTopic()).incrementAndGet();
         storeStatsService.getSinglePutMessageTopicSizeTotal(topic).addAndGet(result.getWroteBytes());
 
+        // TODO: 2020-04-08 刷盘策略 
         handleDiskFlush(result, putMessageResult, msg);
+        // TODO: 2020-04-08 高可用的作用？？？ 
         handleHA(result, putMessageResult, msg);
 
         return putMessageResult;

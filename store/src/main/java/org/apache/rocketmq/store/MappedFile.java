@@ -161,6 +161,7 @@ public class MappedFile extends ReferenceResource {
 
         try {
             this.fileChannel = new RandomAccessFile(this.file, "rw").getChannel();
+            // TODO: 2020-04-09 零拷贝技术 
             this.mappedByteBuffer = this.fileChannel.map(MapMode.READ_WRITE, 0, fileSize);
             TOTAL_MAPPED_VIRTUAL_MEMORY.addAndGet(fileSize);
             TOTAL_MAPPED_FILES.incrementAndGet();
@@ -504,6 +505,7 @@ public class MappedFile extends ReferenceResource {
                 log.info("j={}, costTime={}", j, System.currentTimeMillis() - time);
                 time = System.currentTimeMillis();
                 try {
+                    // TODO: 2020-04-09 什么意思？能让当前线程主动放弃cpu的使用权？ 
                     Thread.sleep(0);
                 } catch (InterruptedException e) {
                     log.error("Interrupted", e);
